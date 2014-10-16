@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: docker-redis
-# Recipe:: default
+# Recipe:: install
 #
 # Copyright (C) 2014 Daniel Ku
 #
@@ -31,5 +31,6 @@ docker_container 'redis' do
   command '--port 6379'
   detach true
   port '6379:6379'
+  cmd_timeout 300
   action :run
 end

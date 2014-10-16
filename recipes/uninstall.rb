@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: docker-redis
-# Recipe:: default
+# Recipe:: uninstall
 #
 # Copyright (C) 2014 Daniel Ku
 #
@@ -24,8 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-docker_image 'kjunine/redis' do
-  tag 'latest'
-  cmd_timeout 600
-  action :pull
+docker_container 'redis' do
+  action :stop
+end
+
+docker_container 'redis' do
+  action :remove
 end
