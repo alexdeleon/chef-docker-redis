@@ -23,9 +23,11 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+docker_service 'default' do
+  action [:create, :start]
+end
 
-docker_image 'kjunine/redis' do
+docker_image node["redis"]["docker_image"] do
   tag 'latest'
-  cmd_timeout 600
   action :pull
 end

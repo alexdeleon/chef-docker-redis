@@ -25,12 +25,11 @@
 #
 
 docker_container 'redis' do
-  image 'kjunine/redis:latest'
+  image node["redis"]["docker_image"]
+  tag node["redis"]["docker_image_tag"]
   container_name 'redis'
   entrypoint 'redis-server'
   command "--port 6379 --slaveof #{node['redis']['master']} 6379"
   detach true
   port '6379:6379'
-  cmd_timeout 300
-  action :run
 end
