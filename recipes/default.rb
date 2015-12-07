@@ -27,7 +27,7 @@ docker_service 'default' do
   action [:create, :start]
 end
 
-docker_image node["redis"]["docker_image"] do
-  tag 'latest'
+docker_image node[:redis][:docker_image] do
+  tag node[:redis][:docker_image_tag]
   action :pull
 end

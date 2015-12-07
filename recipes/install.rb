@@ -24,12 +24,31 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# Cread volumens directory
+directory node[:redis][:config_path] do
+	recursive true
+	action :create
+end
+
+# Build the configuration
+template "#{node[:redis][:config_path]}/redis.conf" do
+	source "redis.conf.erb"
+	variables :config => node[:redis][:config]
+	action :create
+	notifies :restart, "docker_container[redis]", :delayed
+end
+
 docker_container 'redis' do
-  image node["redis"]["docker_image"]
-  tag node["redis"]["docker_image_tag"]
+  image node[:redis][:docker_image]
+  tag node[:redis][:docker_image_tag]
   container_name 'redis'
   entrypoint 'redis-server'
   command '--port 6379'
   detach true
-  port '6379:6379'
+  port '6379:6379' if node[:redis][:expose_port]
+  volumes [
+		"#{node[:redis][:config_path]}/redis.conf:/usr/local/etc/redis/redis.conf"
+	]
 end
+
+

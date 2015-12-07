@@ -4,6 +4,6 @@ maintainer_email 'kjunine@gmail.com'
 license          'MIT'
 description      'Installs/Configures docker-redis'
 long_description 'Installs/Configures docker-redis'
-version          '0.4.0'
+version          '0.4.1'
 
 depends 'docker'
